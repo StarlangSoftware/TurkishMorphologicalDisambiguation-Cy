@@ -1,3 +1,4 @@
+from MorphologicalDisambiguation.AutoDisambiguator import AutoDisambiguator
 from MorphologicalDisambiguation.DisambiguationCorpus cimport DisambiguationCorpus
 from MorphologicalDisambiguation.MorphologicalDisambiguator cimport MorphologicalDisambiguator
 from MorphologicalAnalysis.FsmParseList cimport FsmParseList
@@ -33,17 +34,20 @@ cdef class LongestRootFirstDisambiguation(MorphologicalDisambiguator):
         list
             CorrectFsmParses list.
         """
+        cdef int i
         cdef list correctFsmParses
         cdef FsmParseList fsmParseList
         cdef FsmParse bestParse, newBestParse
         correctFsmParses = []
+        i = 0
         for fsmParseList in fsmParses:
             bestParse = fsmParseList.getParseWithLongestRootWord()
             fsmParseList.reduceToParsesWithSameRootAndPos(bestParse.getWordWithPos())
-            newBestParse = fsmParseList.caseDisambiguator()
+            newBestParse = AutoDisambiguator.caseDisambiguator(i, fsmParses, correctFsmParses)
             if newBestParse is not None:
                 bestParse = newBestParse
             correctFsmParses.append(bestParse)
+            i = i + 1
         return correctFsmParses
 
     cpdef saveModel(self):

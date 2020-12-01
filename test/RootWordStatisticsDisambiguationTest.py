@@ -28,7 +28,7 @@ class RootWordStatisticsDisambiguationTest(unittest.TestCase):
                     if fsmParses[j].getWord() == word.getParse().getWord():
                         correctRoot = correctRoot + 1
         self.assertAlmostEqual(0.9630, (correctRoot + 0.0) / corpus.numberOfWords(), 3)
-        self.assertAlmostEqual(0.7968, (correctParse + 0.0) / corpus.numberOfWords(), 3)
+        self.assertAlmostEqual(0.8733, (correctParse + 0.0) / corpus.numberOfWords(), 3)
 
 
 if __name__ == '__main__':

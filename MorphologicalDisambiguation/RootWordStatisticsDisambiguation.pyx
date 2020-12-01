@@ -1,3 +1,4 @@
+from MorphologicalDisambiguation.AutoDisambiguator import AutoDisambiguator
 from MorphologicalDisambiguation.DisambiguationCorpus cimport DisambiguationCorpus
 from MorphologicalDisambiguation.MorphologicalDisambiguator cimport MorphologicalDisambiguator
 from MorphologicalAnalysis.FsmParseList cimport FsmParseList
@@ -35,16 +36,24 @@ cdef class RootWordStatisticsDisambiguation(MorphologicalDisambiguator):
         list
             CorrectFsmParses list.
         """
+        cdef int i
         cdef list correctFsmParses
         cdef FsmParseList fsmParseList
         cdef FsmParse bestParse, newBestParse
-        cdef str bestRoot
+        cdef str bestRoot, rootWords
         correctFsmParses = []
+        i = 0
         for fsmParseList in fsmParses:
-            bestRoot = self.rootWordStatistics.bestRootWord(fsmParseList, 0.0)
+            rootWords = fsmParseList.rootWords()
+            if "$" in rootWords:
+                bestRoot = self.rootWordStatistics.bestRootWord(fsmParseList, 0.0)
+                if bestRoot is None:
+                    bestRoot = fsmParseList.getParseWithLongestRootWord().getWord().getName()
+            else:
+                bestRoot = rootWords
             if bestRoot is not None:
                 fsmParseList.reduceToParsesWithSameRoot(bestRoot)
-                newBestParse = fsmParseList.caseDisambiguator()
+                newBestParse = AutoDisambiguator.caseDisambiguator(i, fsmParses, correctFsmParses)
                 if newBestParse is not None:
                     bestParse = newBestParse
                 else:
@@ -52,6 +61,7 @@ cdef class RootWordStatisticsDisambiguation(MorphologicalDisambiguator):
             else:
                 bestParse = fsmParseList.getFsmParse(0)
             correctFsmParses.append(bestParse)
+            i = i + 1
         return correctFsmParses
 
     cpdef saveModel(self):

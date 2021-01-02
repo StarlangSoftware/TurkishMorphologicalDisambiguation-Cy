@@ -8,7 +8,7 @@ setup(
     version='1.0.3',
     packages=['MorphologicalDisambiguation'],
     package_data={'MorphologicalDisambiguation': ['*.pxd', '*.pyx', '*.c']},
-    url='https://github.com/olcaytaner/TurkishMorphologicalDisambiguation-Cy',
+    url='https://github.com/StarlangSoftware/TurkishMorphologicalDisambiguation-Cy',
     license='',
     author='olcaytaner',
     author_email='olcay.yildiz@ozyegin.edu.tr',

@@ -1,4 +1,4 @@
-from MorphologicalDisambiguation.DisambiguationCorpus cimport DisambiguationCorpus
+from DisambiguationCorpus.DisambiguationCorpus cimport DisambiguationCorpus
 
 
 cdef class MorphologicalDisambiguator:

@@ -1,5 +1,5 @@
 from MorphologicalDisambiguation.AutoDisambiguator import AutoDisambiguator
-from MorphologicalDisambiguation.DisambiguationCorpus cimport DisambiguationCorpus
+from DisambiguationCorpus.DisambiguationCorpus cimport DisambiguationCorpus
 from MorphologicalDisambiguation.MorphologicalDisambiguator cimport MorphologicalDisambiguator
 from MorphologicalAnalysis.FsmParseList cimport FsmParseList
 from MorphologicalAnalysis.FsmParse cimport FsmParse

@@ -5,8 +5,8 @@ from NGram.LaplaceSmoothing cimport LaplaceSmoothing
 from NGram.NGram cimport NGram
 from Corpus.Sentence cimport Sentence
 
-from MorphologicalDisambiguation.DisambiguatedWord cimport DisambiguatedWord
-from MorphologicalDisambiguation.DisambiguationCorpus cimport DisambiguationCorpus
+from DisambiguationCorpus.DisambiguatedWord cimport DisambiguatedWord
+from DisambiguationCorpus.DisambiguationCorpus cimport DisambiguationCorpus
 from MorphologicalDisambiguation.NaiveDisambiguation cimport NaiveDisambiguation
 
 

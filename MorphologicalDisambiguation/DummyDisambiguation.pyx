@@ -1,6 +1,6 @@
 from random import randrange
 
-from MorphologicalDisambiguation.DisambiguationCorpus cimport DisambiguationCorpus
+from DisambiguationCorpus.DisambiguationCorpus cimport DisambiguationCorpus
 from MorphologicalDisambiguation.MorphologicalDisambiguator cimport MorphologicalDisambiguator
 from MorphologicalAnalysis.FsmParseList cimport FsmParseList
 

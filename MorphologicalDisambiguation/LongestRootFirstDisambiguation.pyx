@@ -1,3 +1,4 @@
+import pkg_resources
 from MorphologicalDisambiguation.AutoDisambiguator import AutoDisambiguator
 from DisambiguationCorpus.DisambiguationCorpus cimport DisambiguationCorpus
 from MorphologicalDisambiguation.MorphologicalDisambiguator cimport MorphologicalDisambiguator
@@ -12,7 +13,7 @@ cdef class LongestRootFirstDisambiguation(MorphologicalDisambiguator):
     def __init__(self, fileName=None):
         self.rootList = {}
         if fileName is None:
-            self.__readFromFile("../rootlist.txt")
+            self.__readFromFile(pkg_resources.resource_filename(__name__, 'data/rootlist.txt'))
         else:
             self.__readFromFile(fileName)
 

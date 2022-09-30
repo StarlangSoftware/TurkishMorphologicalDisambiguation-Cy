@@ -33,10 +33,10 @@ cdef class DummyDisambiguation(MorphologicalDisambiguator):
         list
             CorrectFsmParses list.
         """
-        cdef list correctFsmParses
-        cdef FsmParseList fsmParseList
-        correctFsmParses = []
-        for fsmParseList in fsmParses:
-            if fsmParseList.size() > 0:
-                correctFsmParses.append(fsmParseList.getFsmParse(randrange(fsmParseList.size())))
-        return correctFsmParses
+        cdef list correct_fsm_parses
+        cdef FsmParseList fsm_parse_list
+        correct_fsm_parses = []
+        for fsm_parse_list in fsmParses:
+            if fsm_parse_list.size() > 0:
+                correct_fsm_parses.append(fsm_parse_list.getFsmParse(randrange(fsm_parse_list.size())))
+        return correct_fsm_parses

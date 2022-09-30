@@ -8,10 +8,10 @@ from MorphologicalAnalysis.FsmParse cimport FsmParse
 
 cdef class LongestRootFirstDisambiguation(MorphologicalDisambiguator):
 
-    cdef dict rootList
+    cdef dict root_list
 
     def __init__(self, fileName=None):
-        self.rootList = {}
+        self.root_list = {}
         if fileName is None:
             self.__readFromFile(pkg_resources.resource_filename(__name__, 'data/rootlist.txt'))
         else:
@@ -19,15 +19,15 @@ cdef class LongestRootFirstDisambiguation(MorphologicalDisambiguator):
 
     cpdef __readFromFile(self, str fileName):
         cdef list lines
-        cdef list wordList
+        cdef list word_list
         cdef str line
-        inputFile = open(fileName, "r", encoding="utf8")
-        lines = inputFile.readlines()
+        input_file = open(fileName, "r", encoding="utf8")
+        lines = input_file.readlines()
         for line in lines:
-            wordList = line.split()
-            if len(wordList) == 2:
-                self.rootList[wordList[0]] = wordList[1]
-        inputFile.close()
+            word_list = line.split()
+            if len(word_list) == 2:
+                self.root_list[word_list[0]] = word_list[1]
+        input_file.close()
 
     cpdef train(self, DisambiguationCorpus corpus):
         """
@@ -57,35 +57,35 @@ cdef class LongestRootFirstDisambiguation(MorphologicalDisambiguator):
             CorrectFsmParses list.
         """
         cdef int i
-        cdef list correctFsmParses
-        cdef FsmParseList fsmParseList
-        cdef FsmParse bestParse, newBestParse
-        cdef str surfaceForm, bestRoot
-        cdef bint rootFound
-        correctFsmParses = []
+        cdef list correct_fsm_parses
+        cdef FsmParseList fsm_parse_list
+        cdef FsmParse best_parse, new_best_parse
+        cdef str surface_form, best_root
+        cdef bint root_found
+        correct_fsm_parses = []
         i = 0
-        for fsmParseList in fsmParses:
-            surfaceForm = fsmParseList.getFsmParse(0).getSurfaceForm()
-            bestRoot = None
-            rootFound = False
-            if surfaceForm in self.rootList:
-                bestRoot = self.rootList[surfaceForm]
-                for j in range(fsmParseList.size()):
-                    if fsmParseList.getFsmParse(j).getWord().getName() == bestRoot:
-                        rootFound = True
-            if bestRoot is None or not rootFound:
-                bestParse = fsmParseList.getParseWithLongestRootWord()
-                fsmParseList.reduceToParsesWithSameRoot(bestParse.getWord().getName())
+        for fsm_parse_list in fsmParses:
+            surface_form = fsm_parse_list.getFsmParse(0).getSurfaceForm()
+            best_root = None
+            root_found = False
+            if surface_form in self.root_list:
+                best_root = self.root_list[surface_form]
+                for j in range(fsm_parse_list.size()):
+                    if fsm_parse_list.getFsmParse(j).getWord().getName() == best_root:
+                        root_found = True
+            if best_root is None or not root_found:
+                best_parse = fsm_parse_list.getParseWithLongestRootWord()
+                fsm_parse_list.reduceToParsesWithSameRoot(best_parse.getWord().getName())
             else:
-                fsmParseList.reduceToParsesWithSameRoot(bestRoot)
-            newBestParse = AutoDisambiguator.caseDisambiguator(i, fsmParses, correctFsmParses)
-            if newBestParse is not None:
-                bestParse = newBestParse
+                fsm_parse_list.reduceToParsesWithSameRoot(best_root)
+            new_best_parse = AutoDisambiguator.caseDisambiguator(i, fsmParses, correct_fsm_parses)
+            if new_best_parse is not None:
+                best_parse = new_best_parse
             else:
-                bestParse = fsmParseList.getFsmParse(0)
-            correctFsmParses.append(bestParse)
+                best_parse = fsm_parse_list.getFsmParse(0)
+            correct_fsm_parses.append(best_parse)
             i = i + 1
-        return correctFsmParses
+        return correct_fsm_parses
 
     cpdef saveModel(self):
         pass

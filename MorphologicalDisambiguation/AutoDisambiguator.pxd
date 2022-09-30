@@ -4,4 +4,4 @@ from MorphologicalAnalysis.FsmParse cimport FsmParse
 
 cdef class AutoDisambiguator:
 
-    cdef FsmMorphologicalAnalyzer morphologicalAnalyzer
+    cdef FsmMorphologicalAnalyzer morphological_analyzer

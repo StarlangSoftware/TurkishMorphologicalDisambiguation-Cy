@@ -11,6 +11,11 @@ cdef class LongestRootFirstDisambiguation(MorphologicalDisambiguator):
     cdef dict root_list
 
     def __init__(self, fileName=None):
+        """
+        Constructor for the longest root first disambiguation algorithm. The method reads a list of (surface form, most
+        frequent root word for that surface form) pairs from a given file.
+        :param fileName: File that contains list of (surface form, most frequent root word for that surface form) pairs.
+        """
         self.root_list = {}
         if fileName is None:
             self.__readFromFile(pkg_resources.resource_filename(__name__, 'data/rootlist.txt'))
@@ -18,6 +23,10 @@ cdef class LongestRootFirstDisambiguation(MorphologicalDisambiguator):
             self.__readFromFile(fileName)
 
     cpdef __readFromFile(self, str fileName):
+        """
+        Reads the list of (surface form, most frequent root word for that surface form) pairs from a given file.
+        :param fileName: Input file name.
+        """
         cdef list lines
         cdef list word_list
         cdef str line

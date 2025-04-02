@@ -8,8 +8,8 @@ from Cython.Build import cythonize
 setup(
     ext_modules=cythonize(["MorphologicalDisambiguation/*.pyx"],
                           compiler_directives={'language_level': "3"}),
-    name='NlpToolkit-MorphologicalDisambiguation-Cy',
-    version='1.0.10',
+    name='nlptoolkit-morphologicaldisambiguation-cy',
+    version='1.0.11',
     packages=['MorphologicalDisambiguation', 'MorphologicalDisambiguation.data'],
     package_data={'MorphologicalDisambiguation': ['*.pxd', '*.pyx', '*.c'],
                   'MorphologicalDisambiguation.data': ['*.txt']},

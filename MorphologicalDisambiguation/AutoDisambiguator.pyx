@@ -51,7 +51,7 @@ cdef class AutoDisambiguator:
         _map = CounterHashMap()
         for i in range(nextParseList.size()):
             _map.put(nextParseList.getFsmParse(i).getPos())
-        return _map.max()
+        return _map.maxItem()
 
     @staticmethod
     def isBeforeLastWord(index: int,
